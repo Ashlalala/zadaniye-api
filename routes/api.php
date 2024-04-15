@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +19,19 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::middleware('auth:sanctum')->get('/send-code', [UserController::class, 'sendVerificationCodeUsingTrait']);
+
+Route::middleware('auth:sanctum')->patch('/settings', [UserController::class, 'updateSetting']);
+
+
+Route::get('/', function () {
+    return 'gdgdgdgdkgsaidg';
+});
+
+// Route::post('/register', function (Request $request) {
+//     return $request;
+// });
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
